@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.corporation.mapper.User_CorporationMapper" >
+  <resultMap id="BaseResultMap" type="com.corporation.po.User_Corporation" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="userID" property="userID" jdbcType="BIGINT" />
+    <result column="corporationID" property="corporationID" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, userID, corporationID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_corporation
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from user_corporation
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.corporation.po.User_Corporation" >
+    insert into user_corporation (id, userID, corporationID
+      )
+    values (#{id,jdbcType=BIGINT}, #{userID,jdbcType=BIGINT}, #{corporationID,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.corporation.po.User_Corporation" >
+    insert into user_corporation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userID != null" >
+        userID,
+      </if>
+      <if test="corporationID != null" >
+        corporationID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="userID != null" >
+        #{userID,jdbcType=BIGINT},
+      </if>
+      <if test="corporationID != null" >
+        #{corporationID,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.corporation.po.User_Corporation" >
+    update user_corporation
+    <set >
+      <if test="userID != null" >
+        userID = #{userID,jdbcType=BIGINT},
+      </if>
+      <if test="corporationID != null" >
+        corporationID = #{corporationID,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.corporation.po.User_Corporation" >
+    update user_corporation
+    set userID = #{userID,jdbcType=BIGINT},
+      corporationID = #{corporationID,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <delete id="deleteByUserIDAndCorporationID" parameterType="com.corporation.po.User_Corporation" >
+    delete from user_corporation
+    where userID = #{userID} and corporationID = #{corporationID}
+  </delete>
+  
+  <select id = "selectByUserIDAndCorporationID" parameterType="com.corporation.po.User_Corporation" resultType = "java.lang.Integer">
+  		select count(*) from user_corporation where userID = #{userID} and corporationID = #{corporationID} 
+  </select>
+  
+  
+</mapper>

@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.corporation.mapper.RecruitInfoMapper">
+	<resultMap id="BaseResultMap" type="com.corporation.po.RecruitInfo">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="title" property="title" jdbcType="VARCHAR" />
+		<result column="beginTime" property="beginTime" jdbcType="TIMESTAMP" />
+		<result column="publishTime" property="publishTime" jdbcType="TIMESTAMP" />
+		<result column="corporationID" property="corporationID"
+			jdbcType="BIGINT" />
+		<result column="amount" property="amount" jdbcType="INTEGER" />
+		<result column="cost" property="cost" jdbcType="INTEGER" />
+		<result column="endTime" property="endTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<resultMap id="ResultMapWithBLOBs" type="com.corporation.po.RecruitInfo"
+		extends="BaseResultMap">
+		<result column="content" property="content" jdbcType="LONGVARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, title, beginTime, publishTime, corporationID, amount, cost, endTime
+	</sql>
+	<sql id="Blob_Column_List">
+		content
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from recruitinfo
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from recruitinfo
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert" parameterType="com.corporation.po.RecruitInfo">
+		insert into recruitinfo (id, title, beginTime,
+		publishTime, corporationID, amount,
+		cost, endTime, content
+		)
+		values (#{id,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR},
+		#{beginTime,jdbcType=TIMESTAMP},
+		#{publishTime,jdbcType=TIMESTAMP}, #{corporationID,jdbcType=BIGINT}, #{amount,jdbcType=INTEGER},
+		#{cost,jdbcType=INTEGER}, #{endTime,jdbcType=TIMESTAMP},
+		#{content,jdbcType=LONGVARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.corporation.po.RecruitInfo">
+		insert into recruitinfo
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="title != null">
+				title,
+			</if>
+			<if test="beginTime != null">
+				beginTime,
+			</if>
+			<if test="publishTime != null">
+				publishTime,
+			</if>
+			<if test="corporationID != null">
+				corporationID,
+			</if>
+			<if test="amount != null">
+				amount,
+			</if>
+			<if test="cost != null">
+				cost,
+			</if>
+			<if test="endTime != null">
+				endTime,
+			</if>
+			<if test="content != null">
+				content,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="title != null">
+				#{title,jdbcType=VARCHAR},
+			</if>
+			<if test="beginTime != null">
+				#{beginTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="publishTime != null">
+				#{publishTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="corporationID != null">
+				#{corporationID,jdbcType=BIGINT},
+			</if>
+			<if test="amount != null">
+				#{amount,jdbcType=INTEGER},
+			</if>
+			<if test="cost != null">
+				#{cost,jdbcType=INTEGER},
+			</if>
+			<if test="endTime != null">
+				#{endTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="content != null">
+				#{content,jdbcType=LONGVARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.corporation.po.RecruitInfo">
+		update recruitinfo
+		<set>
+			<if test="title != null">
+				title = #{title,jdbcType=VARCHAR},
+			</if>
+			<if test="beginTime != null">
+				beginTime = #{beginTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="publishTime != null">
+				publishTime = #{publishTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="corporationID != null">
+				corporationID = #{corporationID,jdbcType=BIGINT},
+			</if>
+			<if test="amount != null">
+				amount = #{amount,jdbcType=INTEGER},
+			</if>
+			<if test="cost != null">
+				cost = #{cost,jdbcType=INTEGER},
+			</if>
+			<if test="endTime != null">
+				endTime = #{endTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="content != null">
+				content = #{content,jdbcType=LONGVARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKeyWithBLOBs" parameterType="com.corporation.po.RecruitInfo">
+		update recruitinfo
+		set title = #{title,jdbcType=VARCHAR},
+		beginTime = #{beginTime,jdbcType=TIMESTAMP},
+		publishTime = #{publishTime,jdbcType=TIMESTAMP},
+		corporationID = #{corporationID,jdbcType=BIGINT},
+		amount = #{amount,jdbcType=INTEGER},
+		cost = #{cost,jdbcType=INTEGER},
+		endTime = #{endTime,jdbcType=TIMESTAMP},
+		content = #{content,jdbcType=LONGVARCHAR}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.corporation.po.RecruitInfo">
+		update recruitinfo
+		set title = #{title,jdbcType=VARCHAR},
+		beginTime = #{beginTime,jdbcType=TIMESTAMP},
+		publishTime = #{publishTime,jdbcType=TIMESTAMP},
+		corporationID = #{corporationID,jdbcType=BIGINT},
+		amount = #{amount,jdbcType=INTEGER},
+		cost = #{cost,jdbcType=INTEGER},
+		endTime = #{endTime,jdbcType=TIMESTAMP}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<!-- 获取招募令列表 -->
+	<select id="list" parameterType="com.corporation.web.vo.RecruitInfoListCondition"
+		resultType="com.corporation.web.vo.RecruitInfo">
+		select r.id as id , r.title as title , r.content as content
+		, c.imageUrl as imageUrl , r.publishTime as publishTime from
+		recruitInfo as r join corporation as c on r.corporationID=c.id
+		order by
+		publishTime desc
+		limit ${(requestPage-1)*pageCount} , #{pageCount}
+	</select>
+
+	<!-- 查找总记录 -->
+	<select id="selectCount" parameterType="com.corporation.web.vo.RecruitInfoListCondition"
+		resultType="java.lang.Integer">
+		select count(*) from recruitInfo
+	</select>
+
+	<!-- 根据招募令ID查询该招募令信息-->
+	<select id="recruitInfo" parameterType="java.lang.Long"
+		resultType="com.corporation.web.vo.RecruitInfo">
+		select r.id as id , r.title as title , r.content as content , r.beginTime as
+		beginTime , r.endTime as endTime , r.amount as amount , r.cost as cost
+		, c.name as corporationName , c.id as corporationID
+		from recruitInfo as r join corporation as c on r.corporationID=c.id and
+		r.id=#{recruitInfoID}
+	</select>
+
+
+
+</mapper>

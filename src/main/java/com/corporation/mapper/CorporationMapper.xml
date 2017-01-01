@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.corporation.mapper.CorporationMapper">
+	<resultMap id="BaseResultMap" type="com.corporation.po.Corporation">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="ranking" property="ranking" jdbcType="INTEGER" />
+		<result column="address" property="address" jdbcType="VARCHAR" />
+		<result column="email" property="email" jdbcType="VARCHAR" />
+		<result column="phoneNumber" property="phoneNumber" jdbcType="VARCHAR" />
+		<result column="presidentID" property="presidentID" jdbcType="BIGINT" />
+		<result column="registerTime" property="registerTime" jdbcType="TIMESTAMP" />
+		<result column="imageUrl" property="imageUrl" jdbcType="VARCHAR" />
+		<result column="click" property="click" jdbcType="BIGINT" />
+		<result column="typeID" property="typeID" jdbcType="BIGINT" />
+	</resultMap>
+	<resultMap id="ResultMapWithBLOBs" type="com.corporation.po.Corporation"
+		extends="BaseResultMap">
+		<result column="introduction" property="introduction" jdbcType="LONGVARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, name, ranking, address, email, phoneNumber,
+		presidentID,
+		registerTime, imageUrl,
+		click, typeID
+	</sql>
+	<sql id="Blob_Column_List">
+		introduction
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from corporation
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from
+		corporation
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert" parameterType="com.corporation.po.Corporation">
+		insert into corporation (id,
+		name, ranking,
+		address, email, phoneNumber,
+		presidentID, registerTime,
+		imageUrl,
+		click, typeID, introduction
+		)
+		values (#{id,jdbcType=BIGINT},
+		#{name,jdbcType=VARCHAR},
+		#{ranking,jdbcType=INTEGER},
+		#{address,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR},
+		#{phoneNumber,jdbcType=VARCHAR},
+		#{presidentID,jdbcType=BIGINT},
+		#{registerTime,jdbcType=TIMESTAMP},
+		#{imageUrl,jdbcType=VARCHAR},
+		#{click,jdbcType=BIGINT}, #{typeID,jdbcType=BIGINT},
+		#{introduction,jdbcType=LONGVARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.corporation.po.Corporation">
+		insert into corporation
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="ranking != null">
+				ranking,
+			</if>
+			<if test="address != null">
+				address,
+			</if>
+			<if test="email != null">
+				email,
+			</if>
+			<if test="phoneNumber != null">
+				phoneNumber,
+			</if>
+			<if test="presidentID != null">
+				presidentID,
+			</if>
+			<if test="registerTime != null">
+				registerTime,
+			</if>
+			<if test="imageUrl != null">
+				imageUrl,
+			</if>
+			<if test="click != null">
+				click,
+			</if>
+			<if test="typeID != null">
+				typeID,
+			</if>
+			<if test="introduction != null">
+				introduction,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="ranking != null">
+				#{ranking,jdbcType=INTEGER},
+			</if>
+			<if test="address != null">
+				#{address,jdbcType=VARCHAR},
+			</if>
+			<if test="email != null">
+				#{email,jdbcType=VARCHAR},
+			</if>
+			<if test="phoneNumber != null">
+				#{phoneNumber,jdbcType=VARCHAR},
+			</if>
+			<if test="presidentID != null">
+				#{presidentID,jdbcType=BIGINT},
+			</if>
+			<if test="registerTime != null">
+				#{registerTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="imageUrl != null">
+				#{imageUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="click != null">
+				#{click,jdbcType=BIGINT},
+			</if>
+			<if test="typeID != null">
+				#{typeID,jdbcType=BIGINT},
+			</if>
+			<if test="introduction != null">
+				#{introduction,jdbcType=LONGVARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.corporation.po.Corporation">
+		update corporation
+		<set>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="ranking != null">
+				ranking = #{ranking,jdbcType=INTEGER},
+			</if>
+			<if test="address != null">
+				address = #{address,jdbcType=VARCHAR},
+			</if>
+			<if test="email != null">
+				email = #{email,jdbcType=VARCHAR},
+			</if>
+			<if test="phoneNumber != null">
+				phoneNumber = #{phoneNumber,jdbcType=VARCHAR},
+			</if>
+			<if test="presidentID != null">
+				presidentID = #{presidentID,jdbcType=BIGINT},
+			</if>
+			<if test="registerTime != null">
+				registerTime = #{registerTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="imageUrl != null">
+				imageUrl = #{imageUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="click != null">
+				click = #{click,jdbcType=BIGINT},
+			</if>
+			<if test="typeID != null">
+				typeID = #{typeID,jdbcType=BIGINT},
+			</if>
+			<if test="introduction != null">
+				introduction = #{introduction,jdbcType=LONGVARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKeyWithBLOBs" parameterType="com.corporation.po.Corporation">
+		update
+		corporation
+		set name = #{name,jdbcType=VARCHAR},
+		ranking =
+		#{ranking,jdbcType=INTEGER},
+		address = #{address,jdbcType=VARCHAR},
+		email = #{email,jdbcType=VARCHAR},
+		phoneNumber =
+		#{phoneNumber,jdbcType=VARCHAR},
+		presidentID =
+		#{presidentID,jdbcType=BIGINT},
+		registerTime =
+		#{registerTime,jdbcType=TIMESTAMP},
+		imageUrl =
+		#{imageUrl,jdbcType=VARCHAR},
+		click = #{click,jdbcType=BIGINT},
+		typeID =
+		#{typeID,jdbcType=BIGINT},
+		introduction =
+		#{introduction,jdbcType=LONGVARCHAR}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.corporation.po.Corporation">
+		update corporation
+		set name = #{name,jdbcType=VARCHAR},
+		ranking =
+		#{ranking,jdbcType=INTEGER},
+		address = #{address,jdbcType=VARCHAR},
+		email = #{email,jdbcType=VARCHAR},
+		phoneNumber =
+		#{phoneNumber,jdbcType=VARCHAR},
+		presidentID =
+		#{presidentID,jdbcType=BIGINT},
+		registerTime =
+		#{registerTime,jdbcType=TIMESTAMP},
+		imageUrl =
+		#{imageUrl,jdbcType=VARCHAR},
+		click = #{click,jdbcType=BIGINT},
+		typeID =
+		#{typeID,jdbcType=BIGINT}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+
+	<!-- 查找我的社团 -->
+	<select id="selectCorporationListByUserID" parameterType="java.lang.Long"
+		resultType="com.corporation.po.Corporation">
+		select
+		id , name
+		from corporation
+		where presidentID =
+		#{userID,jdbcType=BIGINT}
+	</select>
+
+	<!-- 查找我加入的社团 -->
+	<select id="selectMyJoinCorporationListByUserID" parameterType="java.lang.Long"
+		resultType="com.corporation.po.Corporation">
+		select c.id , c.name from user_corporation as uc join
+		corporation as c on
+		uc.userID = #{userID} and uc.corporationID = c.id
+	</select>
+
+	<!-- 社团点击量加1 -->
+	<update id="click" parameterType="java.lang.Long">
+		update corporation set click =
+		click+1 where id = #{corporationID}
+	</update>
+	<!-- 社团排行列表 -->
+	<select id="list" resultType="com.corporation.po.Corporation">
+		select id , name , imageUrl from
+		corporation order by click desc
+	</select>
+
+	<!-- 根据关键字搜索社团 -->
+	<select id="search" parameterType="com.corporation.web.vo.SearchCondition"
+		resultType="com.corporation.po.Corporation">
+		select id , name , imageUrl from corporation
+		<where>
+			<if test="keyword != null and keyword != ''">
+				name like #{keyword}
+			</if>
+			<if test="typeID != null and typeID !=''">
+				AND typeID = #{typeID}
+			</if>
+		</where>
+		order by click desc
+		limit ${(requestPage-1)*pageCount} , #{pageCount}
+	</select>
+
+	<!-- 获取所有社团类型 -->
+	<select id="corporationTypeList" resultType="com.corporation.po.CorporationType">
+		select id , name
+		from corporationType
+	</select>
+
+	<!-- 查找总记录 -->
+	<select id="selectCount" parameterType="com.corporation.web.vo.SearchCondition"
+		resultType="java.lang.Integer">
+		select count(id) from corporation
+		<where>
+			<if test="keyword != null and keyword != ''">
+				name like #{keyword}
+			</if>
+			<if test="typeID != null and typeID !=''">
+				AND typeID = #{typeID}
+			</if>
+		</where>
+	</select>
+
+	<!-- 查找排名前4的社团 -->
+	<select id="top4Corporation" resultType="com.corporation.po.Corporation">
+		select id , imageUrl ,
+		name , introduction from corporation order by click desc,registerTime
+		asc limit 4
+	</select>
+
+	<!-- 统计成员人数 -->
+	<select id="memberAmount" resultType="java.lang.Integer"
+		parameterType="java.lang.Long">
+		select count(*) from user_corporation as uc join
+		corporation as c on uc.corporationID=c.id and c.id=#{corporationID}
+	</select>
+
+	<!-- 获取成员列表 -->
+	<select id="memberList" resultType="com.corporation.po.User"
+		parameterType="com.corporation.web.vo.MemberListCondition">
+		select u.id as id , u.userName as userName , u.sex as
+		sex , u.realName as realName , u.phoneNumber as phoneNumber , u.email
+		as email , u.college as college , u.major as major , u.period as
+		period , u.introduction as introduction
+		from user as u join
+		user_corporation as uc on u.id=uc.userID and
+		uc.corporationID=#{corporationID}
+		limit ${(requestPage-1)*pageCount} ,
+		#{pageCount}
+	</select>
+
+	<!-- 根据社团ID获取成员总记录 -->
+	<select id="selectMemberCount" resultType="java.lang.Integer"
+		parameterType="java.lang.Long">
+		select count(*) from user_corporation
+		where corporationID
+		= #{corporationID}
+	</select>
+
+	<!-- 根据社团ID查找社团名字 -->
+	<select id="selectNameByPrimaryKey" resultType="com.corporation.po.Corporation"
+		parameterType="java.lang.Long">
+		select name from corporation where id = #{corporationID}
+	</select>
+
+	<!-- 根据社团ID获取社团信息 -->
+	<select id="get" parameterType="java.lang.Long"
+		resultType="com.corporation.web.vo.Corporation">
+		select
+		c.id as id ,
+		c.name as name , c.introduction as
+		introduction ,
+		c.ranking as
+		ranking , c.address as address , c.email as
+		email ,
+		c.phoneNumber as
+		phoneNumber , c.presidentID as presidentID
+		,c.registerTime as registerTime ,
+		c.imageUrl as imageUrl ,
+		c.click as
+		click , ct.name as
+		corporationTypeName , c.typeID as typeID
+		from
+		corporation as c join corporationType as ct
+		on c.typeID = ct.id and
+		c.id = #{corporationID}
+	</select>
+
+	<!-- 获取每个社团的点击量 -->
+	<select id="selectCorporationClickList" resultType="com.corporation.po.Corporation">
+		select id ,
+		click from corporation
+	</select>
+	
+	<!-- 获取社团数量 -->
+	<select id = "count" resultType = "java.lang.Integer">
+		select count(*) from corporation ; 
+	</select>
+
+</mapper>

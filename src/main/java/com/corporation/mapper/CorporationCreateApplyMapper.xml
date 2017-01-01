@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.corporation.mapper.CorporationCreateApplyMapper">
+	<resultMap id="BaseResultMap" type="com.corporation.po.CorporationCreateApply">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="introduction" property="introduction" jdbcType="VARCHAR" />
+		<result column="applyTime" property="applyTime" jdbcType="TIMESTAMP" />
+		<result column="address" property="address" jdbcType="VARCHAR" />
+		<result column="email" property="email" jdbcType="VARCHAR" />
+		<result column="phoneNumber" property="phoneNumber" jdbcType="CHAR" />
+		<result column="status" property="status" jdbcType="CHAR" />
+		<result column="userID" property="userID" jdbcType="BIGINT" />
+		<result column="corporationTypeID" property="corporationTypeID"
+			jdbcType="BIGINT" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, name, introduction, applyTime, address, email,
+		phoneNumber, status,
+		userID, corporationTypeID
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from corporationcreateapply
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from
+		corporationcreateapply
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert" parameterType="com.corporation.po.CorporationCreateApply">
+		insert into
+		corporationcreateapply (id, name, introduction,
+		applyTime, address,
+		email,
+		phoneNumber, status, userID,
+		corporationTypeID)
+		values
+		(#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR},
+		#{introduction,jdbcType=VARCHAR},
+		#{applyTime,jdbcType=TIMESTAMP},
+		#{address,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR},
+		#{phoneNumber,jdbcType=CHAR}, #{status,jdbcType=CHAR},
+		#{userID,jdbcType=BIGINT},
+		#{corporationTypeID,jdbcType=BIGINT})
+	</insert>
+	<insert id="insertSelective" parameterType="com.corporation.po.CorporationCreateApply">
+		insert into corporationcreateapply
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="introduction != null">
+				introduction,
+			</if>
+			<if test="applyTime != null">
+				applyTime,
+			</if>
+			<if test="address != null">
+				address,
+			</if>
+			<if test="email != null">
+				email,
+			</if>
+			<if test="phoneNumber != null">
+				phoneNumber,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="userID != null">
+				userID,
+			</if>
+			<if test="corporationTypeID != null">
+				corporationTypeID,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="introduction != null">
+				#{introduction,jdbcType=VARCHAR},
+			</if>
+			<if test="applyTime != null">
+				#{applyTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="address != null">
+				#{address,jdbcType=VARCHAR},
+			</if>
+			<if test="email != null">
+				#{email,jdbcType=VARCHAR},
+			</if>
+			<if test="phoneNumber != null">
+				#{phoneNumber,jdbcType=CHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=CHAR},
+			</if>
+			<if test="userID != null">
+				#{userID,jdbcType=BIGINT},
+			</if>
+			<if test="corporationTypeID != null">
+				#{corporationTypeID,jdbcType=BIGINT},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.corporation.po.CorporationCreateApply">
+		update corporationcreateapply
+		<set>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="introduction != null">
+				introduction = #{introduction,jdbcType=VARCHAR},
+			</if>
+			<if test="applyTime != null">
+				applyTime = #{applyTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="address != null">
+				address = #{address,jdbcType=VARCHAR},
+			</if>
+			<if test="email != null">
+				email = #{email,jdbcType=VARCHAR},
+			</if>
+			<if test="phoneNumber != null">
+				phoneNumber = #{phoneNumber,jdbcType=CHAR},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=CHAR},
+			</if>
+			<if test="userID != null">
+				userID = #{userID,jdbcType=BIGINT},
+			</if>
+			<if test="corporationTypeID != null">
+				corporationTypeID = #{corporationTypeID,jdbcType=BIGINT},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.corporation.po.CorporationCreateApply">
+		update
+		corporationcreateapply
+		set name = #{name,jdbcType=VARCHAR},
+		introduction = #{introduction,jdbcType=VARCHAR},
+		applyTime =
+		#{applyTime,jdbcType=TIMESTAMP},
+		address = #{address,jdbcType=VARCHAR},
+		email = #{email,jdbcType=VARCHAR},
+		phoneNumber =
+		#{phoneNumber,jdbcType=CHAR},
+		status = #{status,jdbcType=CHAR},
+		userID =
+		#{userID,jdbcType=BIGINT},
+		corporationTypeID =
+		#{corporationTypeID,jdbcType=BIGINT}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+
+	<!-- 获取我申请创建社团列表 -->
+	<select id="myApplyCreateCorporationList"
+		parameterType="com.corporation.web.vo.MyApplyCreateCorporationListCondition"
+		resultType="com.corporation.web.vo.CorporationCreateApply">
+		select cca.name as name , cca.applyTime as applyTime ,
+		cca.address as address , cca.phoneNumber as
+		phoneNumber , cca.email as
+		email , cca.status as status , ct.name as
+		corporationTypeName from
+		corporationCreateApply as cca join
+		corporationType as ct on ct.id =
+		cca.corporationTypeID and cca.userID
+		= #{userID}
+		order by applyTime desc
+		limit ${(requestPage-1)*pageCount} , #{pageCount}
+	</select>
+	<!-- 获取我申请加入的社团总条目 -->
+	<select id="selectCount" parameterType="java.lang.Long"
+		resultType="java.lang.Integer">
+		select count(id) from corporationCreateApply where userID =
+		#{userID}
+	</select>
+
+
+	<!-- 根据分页条件查看社团创建申请 -->
+	<select id="corporationCreateApplyList" resultType="com.corporation.web.vo.CorporationCreateApply"
+		parameterType="com.corporation.web.vo.CorporationCreateApplyListCondition">
+		select cca.id as id , cca.name as name , cca.applyTime
+		as applyTime ,
+		cca.address as address , cca.phoneNumber as
+		phoneNumber ,
+		cca.email as
+		email , cca.status as status , ct.name as
+		corporationTypeName , u.userName as userName from
+		corporationCreateApply as
+		cca join
+		corporationType as ct join user as u on ct.id =
+		cca.corporationTypeID and u.id = cca.userID
+		order by applyTime desc
+		limit
+		${(requestPage-1)*pageCount} , #{pageCount}
+	</select>
+	
+	<!-- 获取申请创建社团总条目 -->
+	<select id = "count" resultType = "java.lang.Integer">
+		select count(*) from corporationCreateApply 
+	</select>
+
+	<!-- 根据社团创建申请ID查找申请信息 -->
+	<select id = "selectCorporationCreateApplyByID" parameterType="java.lang.Long" resultType = "com.corporation.web.vo.CorporationCreateApply">
+		select cca.id as id , cca.name as name , cca.applyTime
+		as applyTime ,
+		cca.address as address , cca.phoneNumber as
+		phoneNumber ,
+		cca.email as
+		email , cca.status as status , ct.name as
+		corporationTypeName , u.userName as userName , cca.introduction as introduction from
+		corporationCreateApply as
+		cca join
+		corporationType as ct join user as u on ct.id =
+		cca.corporationTypeID and u.id = cca.userID and cca.id = #{corporationCreateApplyID}
+	</select>
+
+
+
+
+
+
+</mapper>

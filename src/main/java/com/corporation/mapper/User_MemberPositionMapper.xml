@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.corporation.mapper.User_MemberPositionMapper" >
+  <resultMap id="BaseResultMap" type="com.corporation.po.User_MemberPosition" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="userID" property="userID" jdbcType="BIGINT" />
+    <result column="memberPositionID" property="memberPositionID" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, userID, memberPositionID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_memberposition
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from user_memberposition
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.corporation.po.User_MemberPosition" >
+    insert into user_memberposition (id, userID, memberPositionID
+      )
+    values (#{id,jdbcType=BIGINT}, #{userID,jdbcType=BIGINT}, #{memberPositionID,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.corporation.po.User_MemberPosition" >
+    insert into user_memberposition
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userID != null" >
+        userID,
+      </if>
+      <if test="memberPositionID != null" >
+        memberPositionID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="userID != null" >
+        #{userID,jdbcType=BIGINT},
+      </if>
+      <if test="memberPositionID != null" >
+        #{memberPositionID,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.corporation.po.User_MemberPosition" >
+    update user_memberposition
+    <set >
+      <if test="userID != null" >
+        userID = #{userID,jdbcType=BIGINT},
+      </if>
+      <if test="memberPositionID != null" >
+        memberPositionID = #{memberPositionID,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.corporation.po.User_MemberPosition" >
+    update user_memberposition
+    set userID = #{userID,jdbcType=BIGINT},
+      memberPositionID = #{memberPositionID,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <delete id = "deleteByUserID" parameterType = "java.lang.Long">
+  		delete from user_memberPosition where userID = #{userID}
+  </delete>
+  
+  <select id="selectByUserIDAndCorporationID" parameterType="hashmap" resultType="com.corporation.po.User_MemberPosition">
+  	select um.id , um.userID , um.memberPositionID from user_memberPosition as um join memberPosition as m join corporation as c on um.memberPositionID = m.id and m.corporationID = c.id and um.userID = ${userID} and c.id = #{corporationID} 
+  		limit 1
+  </select>
+  
+  <!-- 根据成员ID和社团ID查找成员职位名称 -->
+  <select id = "selectMemberPositionNameByCorporationIDAndMemberID" parameterType="map" resultType = "java.lang.String">
+  		select m.name from user_memberPosition as um join memberPosition as m on m.corporationID = #{corporationID} and um.memberPositionID=m.id and um.userID=#{memberID}
+  </select>
+  
+</mapper>

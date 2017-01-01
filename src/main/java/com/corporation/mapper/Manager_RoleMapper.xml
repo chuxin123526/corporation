@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.corporation.mapper.Manager_RoleMapper" >
+  <resultMap id="BaseResultMap" type="com.corporation.po.Manager_Role" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="managerID" property="managerID" jdbcType="BIGINT" />
+    <result column="roleID" property="roleID" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, managerID, roleID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from manager_role
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from manager_role
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.corporation.po.Manager_Role" >
+    insert into manager_role (id, managerID, roleID
+      )
+    values (#{id,jdbcType=BIGINT}, #{managerID,jdbcType=BIGINT}, #{roleID,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.corporation.po.Manager_Role" >
+    insert into manager_role
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="managerID != null" >
+        managerID,
+      </if>
+      <if test="roleID != null" >
+        roleID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="managerID != null" >
+        #{managerID,jdbcType=BIGINT},
+      </if>
+      <if test="roleID != null" >
+        #{roleID,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.corporation.po.Manager_Role" >
+    update manager_role
+    <set >
+      <if test="managerID != null" >
+        managerID = #{managerID,jdbcType=BIGINT},
+      </if>
+      <if test="roleID != null" >
+        roleID = #{roleID,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.corporation.po.Manager_Role" >
+    update manager_role
+    set managerID = #{managerID,jdbcType=BIGINT},
+      roleID = #{roleID,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <!-- 根据管理员ID获取该管理员与角色的关系 -->
+  <select id = "selectByManagerID" resultType = "com.corporation.po.Manager_Role" parameterType="java.lang.Long">
+  		select * from manager_role where managerID=#{managerID}
+  </select>
+  
+  <!-- 根据管理员ID删除与角色的关系 -->
+  <delete id = "deleteByManagerID" parameterType = "java.lang.Long">
+  	delete from manager_role where managerID = #{managerID}	
+  </delete>
+  
+  
+  
+  
+</mapper>
